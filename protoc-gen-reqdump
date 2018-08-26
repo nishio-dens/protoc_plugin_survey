@@ -37,6 +37,7 @@ class Cli
       out = fname + ".dump"
       res.file << new_file(name: out, content: f.to_json)
     end
+    res.file << new_file(name: "test_dump.dump", content: "def hello\n  puts 'world'\nend")
 
     res
   end
