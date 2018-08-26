@@ -6,9 +6,9 @@ Bundler.require
 require "pry"
 
 class Cli
-  def run
-    rdata = $stdin.read
-    dump_file(rdata, "read.dump")
+  def run(debug_mode)
+    rdata = debug_mode ? open("./test/read.dump", "rb").read : $stdin.read
+    dump_file(rdata, "read.dump") unless debug_mode
 
     req = decode_req(rdata)
     res = process(req)
@@ -54,4 +54,4 @@ class Cli
   end
 end
 
-Cli.new.run
+Cli.new.run(debug_mode = !ENV["DEBUG_MODE"].blank?)
